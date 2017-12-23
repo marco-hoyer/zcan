@@ -1,2 +1,2 @@
 # zcan
-API proxy for Zehnder ComfoAir Q series devices with CAN bus interface
+Protocol adapter for Zehnder ComfoAir Q series devices with CAN bus interface

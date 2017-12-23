@@ -16,54 +16,53 @@ ser.write(b'O\r')
 
 data = {}
 
-mapping = { 
-  b"001DC041": {
-    "id": "outlet_fan_air_volume", 
-    "name": "Luftmenge Abluftventilator", 
-    "unit": "m3",
-  },
-  b"001E0041": {
-    "id": "inlet_fan_air_volume",
-    "name": "Luftmenge Zuluftventilator",
-    "unit": "m3",
-  },
-  b"001D4041": {
-    "id": "outlet_fan_percent",
-    "name": "Leistung Abluftventilator",
-    "unit": "%",
-  },
-  b"001D8041": {
-    "id": "inlet_fan_percent",
-    "name": "Leistung Zuluftventilator",
-    "unit": "%",
-  },
-  b"00458041": {
-    "id": "inlet_temperature",
-    "name": "Temperatur Zuluft",
-    "unit": "^C",
-  },
-  b"00454041": {
-    "id": "outside_temperature",
-    "name": "Temperatur Außenluft",
-    "unit": "^C",
-  },
-  b"00200041": {
-    "id": "power",
-    "name": "Stromverbrauch aktuell",
-    "unit": "W",
-  },
-  b"004C4041": {
-    "id": "inlet_humidity",
-    "name": "Feuchtigkeit Zuluft",
-    "unit": "%",
-  },
-  b"0048C041": {
-    "id": "putlet_humidity",
-    "name": "Feuchtigkeit Abluft",
-    "unit": "%",
-  },
+mapping = {
+    b"001DC041": {
+        "id": "outlet_fan_air_volume",
+        "name": "Luftmenge Abluftventilator",
+        "unit": "m3",
+    },
+    b"001E0041": {
+        "id": "inlet_fan_air_volume",
+        "name": "Luftmenge Zuluftventilator",
+        "unit": "m3",
+    },
+    b"001D4041": {
+        "id": "outlet_fan_percent",
+        "name": "Leistung Abluftventilator",
+        "unit": "%",
+    },
+    b"001D8041": {
+        "id": "inlet_fan_percent",
+        "name": "Leistung Zuluftventilator",
+        "unit": "%",
+    },
+    b"00458041": {
+        "id": "inlet_temperature",
+        "name": "Temperatur Zuluft",
+        "unit": "^C",
+    },
+    b"00454041": {
+        "id": "outside_temperature",
+        "name": "Temperatur Außenluft",
+        "unit": "^C",
+    },
+    b"00200041": {
+        "id": "power",
+        "name": "Stromverbrauch aktuell",
+        "unit": "W",
+    },
+    b"004C4041": {
+        "id": "inlet_humidity",
+        "name": "Feuchtigkeit Zuluft",
+        "unit": "%",
+    },
+    b"0048C041": {
+        "id": "putlet_humidity",
+        "name": "Feuchtigkeit Abluft",
+        "unit": "%",
+    },
 }
-
 
 client = InfluxDBClient('localhost', 8086, 'root', 'root', 'ventilation')
 
@@ -96,60 +95,61 @@ def send_metric_datapoint(measurement, location, value, timestamp):
     except Exception as e:
         logging.error("send_metric_datapoint: {}".format(e))
 
+
 try:
-  next = datetime.datetime.now() + datetime.timedelta(minutes=1)
-  print(next)
-  time.sleep(1)
-  while True:
-    out = b''
-    while ser.inWaiting() > 0:
-      char = ser.read(1)
-      if char == b'\r':
-        break
-      else:
-        out += char
+    next = datetime.datetime.now() + datetime.timedelta(minutes=1)
+    print(next)
+    time.sleep(1)
+    while True:
+        out = b''
+        while ser.inWaiting() > 0:
+            char = ser.read(1)
+            if char == b'\r':
+                break
+            else:
+                out += char
 
-    if out:
-      raw = out
-      logging.info(raw)
-  
-      try:
-        flag = raw[0:1]
-        id = raw[1:9]
+        if out:
+            raw = out
+            logging.info(raw)
 
-        length = int(raw[9:10], 16)
+            try:
+                flag = raw[0:1]
+                id = raw[1:9]
 
-        index = 10
-        value = []
+                length = int(raw[9:10], 16)
 
-        for item in range(0,length):
-          value.append(int(raw[index:index+2], 16))
-          index += 2
+                index = 10
+                value = []
 
-        if id == b"00454041" or id == b"00458041":
-          dvalue = (parts[0] - parts[1]) / 10
-        else:
-          if len(value) > 1:
-            parts = value[0:2]
-            dvalue = float("{}.{}".format(parts[0], parts[1]))
-          elif len(value) > 0:
-            dvalue = float(value[0])
+                for item in range(0, length):
+                    value.append(int(raw[index:index + 2], 16))
+                    index += 2
 
-        send_metric_datapoint(id, "hwr", dvalue, get_current_time())
-        print("{} {} - {} (length: {})".format(flag, id, value, length))
-        #print(int(value,16))
+                if id == b"00454041" or id == b"00458041":
+                    dvalue = (parts[0] - parts[1]) / 10
+                else:
+                    if len(value) > 1:
+                        parts = value[0:2]
+                        dvalue = float("{}.{}".format(parts[0], parts[1]))
+                    elif len(value) > 0:
+                        dvalue = float(value[0])
 
-        m = mapping.get(id)
-        if m:
-          data[m["id"]] = value
-        else:
-          data[id] = value
-        time.sleep(0.1)
-      except Exception as e:
-        logging.error(e)
-        logging.exception(e)
+                send_metric_datapoint(id, "hwr", dvalue, get_current_time())
+                print("{} {} - {} (length: {})".format(flag, id, value, length))
+                # print(int(value,16))
 
-#    if datetime.datetime.now() > next:
+                m = mapping.get(id)
+                if m:
+                    data[m["id"]] = value
+                else:
+                    data[id] = value
+                time.sleep(0.1)
+            except Exception as e:
+                logging.error(e)
+                logging.exception(e)
+
+# if datetime.datetime.now() > next:
 #      next = datetime.datetime.now() + datetime.timedelta(minutes=1)
 #
 #      print("")
@@ -159,8 +159,8 @@ try:
 #        print("{} = {}".format(k,v))
 
 except KeyboardInterrupt:
-  pass 
+    pass
 finally:
-  print("finally closing everything")
-  ser.write(b'C\r')
-  ser.close()
+    print("finally closing everything")
+    ser.write(b'C\r')
+    ser.close()
