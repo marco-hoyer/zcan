@@ -9,7 +9,7 @@ class Message(object):
         self.data = data
 
     def __str__(self):
-        return "{}-{}-{}-{}".format(self.type, self.id, self.length, self.data)
+        return "type:{} id:{} length:{} data:{}".format(self.type, self.id, self.length, self.data)
 
     def __eq__(self, other):
         if self.type == other.type and self.id == other.id and self.length == other.length and self.data == other.data:
