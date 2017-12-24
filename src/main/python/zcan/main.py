@@ -2,14 +2,14 @@ from multiprocessing import Process, Manager
 
 import time
 
-from zcan.reader import CanMessageReader
+from zcan.can import CanBusReader
 
 manager = Manager()
 d = manager.dict()
 
 
 def input(data):
-    CanMessageReader().read_messages(data)
+    CanBusReader().read_messages(data)
 
 
 def output(data):
