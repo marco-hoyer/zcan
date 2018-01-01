@@ -1,4 +1,6 @@
 import serial
+
+from zcan.exception import ZCanBaseException
 from zcan.mapping import mapping
 
 
@@ -28,12 +30,15 @@ class Measurement(object):
 
     @staticmethod
     def from_message(message: Message):
-        transform_function = mapping[message.id]["transformation"]
-        name = mapping[message.id]["name"]
-        unit = mapping[message.id]["unit"]
+        try:
+            transform_function = mapping[message.id]["transformation"]
+            name = mapping[message.id]["name"]
+            unit = mapping[message.id]["unit"]
 
-        value = transform_function(message.data)
-        return Measurement(name, message.id, value, unit)
+            value = transform_function(message.data)
+            return Measurement(name, message.id, value, unit)
+        except KeyError:
+            ZCanBaseException("Could not find mapping for {}".format(message))
 
     def __str__(self):
         return "name: {} id:{} value:{} unit:{}".format(self.name, self.id, self.value, self.unit)
@@ -53,9 +58,12 @@ class CanBusReader(object):
         self.can.open()
         try:
             while True:
-                message = self.can.read_message()
-                measurement = Measurement.from_message(message)
-                data[measurement.name] = measurement
+                try:
+                    message = self.can.read_message()
+                    measurement = Measurement.from_message(message)
+                    data[measurement.name] = measurement
+                except ZCanBaseException as e:
+                    print(e)
         finally:
             self.can.close()
 
