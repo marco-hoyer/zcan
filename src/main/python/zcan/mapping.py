@@ -28,5 +28,20 @@ mapping = {
         "name": "air_volume_input_ventilator",
         "unit": "m3",
         "transformation": transform_air_volume
+    },
+    "00488041": {
+        "name": "air_humidity_outlet_before_recuperator",
+        "unit": "%",
+        "transformation": lambda x: int(x[0])
+    },
+    "0048C041": {
+        "name": "air_humidity_inlet_before_recuperator",
+        "unit": "%",
+        "transformation": lambda x: int(x[0])
+    },
+    "00200041": {
+        "name": "total_power_consumption",
+        "unit": "W",
+        "transformation": lambda x: int(x[0])
     }
 }

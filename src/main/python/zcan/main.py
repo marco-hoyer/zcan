@@ -20,7 +20,7 @@ def main():
         while True:
             logger.info("Sending values to influxdb")
             for item in m.values():
-                logger.info("Sending to influxdb: {}".format(item))
+                logger.debug("Sending to influxdb: {}".format(item))
                 writer.send_metric_datapoint(item)
 
             time.sleep(10)
@@ -30,7 +30,7 @@ def main():
             logger.info("Unknown messages so far")
             for item in u.values():
                 logger.warn(item)
-            time.sleep(60)
+            time.sleep(3600)
 
     p1 = Process(target=input, args=(measurements, unknown_messages,))
     p2 = Process(target=measurements_outputs, args=(measurements,))
