@@ -3,9 +3,11 @@ from zcan.can import CanBusReader
 import time
 
 from zcan.influxdb_writer import InfluxDbWriter
+from zcan.util import get_logger
 
 
 def main():
+    logger = get_logger()
     manager = Manager()
     measurements = manager.dict()
     unknown_messages = manager.dict()
@@ -16,15 +18,18 @@ def main():
     def measurements_outputs(m):
         writer = InfluxDbWriter()
         while True:
+            logger.info("Sending values to influxdb")
             for item in m.values():
+                logger.info("Sending to influxdb: {}".format(item))
                 writer.send_metric_datapoint(item)
 
             time.sleep(10)
 
     def unknowns_output(u):
         while True:
+            logger.info("Unknown messages so far")
             for item in u.values():
-                print(item)
+                logger.warn(item)
             time.sleep(60)
 
     p1 = Process(target=input, args=(measurements, unknown_messages,))

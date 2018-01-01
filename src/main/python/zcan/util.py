@@ -8,9 +8,12 @@ def get_logger(suffix=None):
                         datefmt='%d.%m.%Y %H:%M:%S')
 
     if suffix:
-        return logging.getLogger('zcan.{0}'.format(suffix))
+        logger = logging.getLogger('zcan.{0}'.format(suffix))
     else:
-        return logging.getLogger('zcan')
+        logger = logging.getLogger('zcan')
+
+    logger.setLevel(logging.INFO)
+    return logger
 
 
 def get_current_time():
