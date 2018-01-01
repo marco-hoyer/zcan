@@ -2,6 +2,23 @@ import serial
 from zcan.mapping import mapping
 
 
+class Message(object):
+    def __init__(self, type: str, id: str, length: int, data):
+        self.type = type
+        self.id = id
+        self.length = length
+        self.data = data
+
+    def __str__(self):
+        return "type:{} id:{} length:{} data:{}".format(self.type, self.id, self.length, self.data)
+
+    def __eq__(self, other):
+        if self.type == other.type and self.id == other.id and self.length == other.length and self.data == other.data:
+            return True
+        else:
+            return False
+
+
 class Measurement(object):
     def __init__(self, name: str, id: str, value, unit: str):
         self.name = name
@@ -23,23 +40,6 @@ class Measurement(object):
 
     def __eq__(self, other):
         if self.name == other.name and self.id == other.id and self.value == other.value and self.unit == other.unit:
-            return True
-        else:
-            return False
-
-
-class Message(object):
-    def __init__(self, type: str, id: str, length: int, data):
-        self.type = type
-        self.id = id
-        self.length = length
-        self.data = data
-
-    def __str__(self):
-        return "type:{} id:{} length:{} data:{}".format(self.type, self.id, self.length, self.data)
-
-    def __eq__(self, other):
-        if self.type == other.type and self.id == other.id and self.length == other.length and self.data == other.data:
             return True
         else:
             return False
