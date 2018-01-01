@@ -12,15 +12,15 @@ class InfluxDbWriter(object):
         self.client = InfluxDBClient(host, port, user, password, db)
         self.client.create_database(db)
 
-    def send_metric_datapoint(self, measurement: Measurement, timestamp=get_current_time()):
+    def send_metric_datapoint(self, measurement: Measurement):
         json_body = [
             {
                 "measurement": measurement.name,
                 "tags": {
-                    "location": measurement.id,
+                    "id": measurement.id,
                     "unit": measurement.unit
                 },
-                "time": timestamp,
+                "time": get_current_time(),
                 "fields": {
                     "value": measurement.value
                 }
