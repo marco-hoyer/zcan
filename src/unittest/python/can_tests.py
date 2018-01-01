@@ -23,7 +23,3 @@ class CanTests(TestCase):
     def test_to_can_message_converts_extended_transmit_frame_without_data(self):
         result = CanBusInterface._to_can_message(b'T100000010\r')
         self.assertEqual(result, Message("T", "10000001", 0, []))
-
-    def test_to_can_message_raises_exception_for_unknown_type(self):
-        with self.assertRaises(AssertionError):
-            CanBusInterface._to_can_message(b'B100000010\r')
