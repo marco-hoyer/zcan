@@ -58,7 +58,7 @@ class CanBusReader(object):
         self.logger = get_logger("CanBusReader")
         self.can = CanBusInterface()
 
-    def read_messages(self, data):
+    def read_messages(self, measurements, unknown_messages):
         self.can.open()
         try:
             while True:
@@ -68,9 +68,9 @@ class CanBusReader(object):
                         self.logger.info(message)
                         measurement = Measurement.from_message(message)
                         if measurement:
-                            data[measurement.name] = measurement
+                            measurements[measurement.name] = measurement
                         else:
-                            self.logger.warn("Could not find mapping for {}".format(message))
+                            unknown_messages[message.id] = message
                 except Exception as e:
                     print(e)
         finally:
