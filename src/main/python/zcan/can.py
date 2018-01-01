@@ -65,7 +65,7 @@ class CanBusReader(object):
                 try:
                     message = self.can.read_message()
                     if message:
-                        self.logger.info(message)
+                        self.logger.debug(message)
                         measurement = Measurement.from_message(message)
                         if measurement:
                             measurements[measurement.name] = measurement
