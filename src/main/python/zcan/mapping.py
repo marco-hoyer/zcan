@@ -43,5 +43,15 @@ mapping = {
         "name": "total_power_consumption",
         "unit": "W",
         "transformation": lambda x: int(x[0])
+    },
+    "001D4041": {
+        "name": "power_percent_output_ventilator",
+        "unit": "%",
+        "transformation": lambda x: int(x[0])
+    },
+    "001D8041": {
+        "name": "power_percent_input_ventilator",
+        "unit": "%",
+        "transformation": lambda x: int(x[0])
     }
 }
