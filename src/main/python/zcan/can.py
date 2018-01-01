@@ -1,7 +1,8 @@
 import serial
-
+import logging
 from zcan.exception import ZCanBaseException
 from zcan.mapping import mapping
+from zcan.util import get_logger
 
 
 class Message(object):
@@ -31,14 +32,16 @@ class Measurement(object):
     @staticmethod
     def from_message(message: Message):
         try:
-            transform_function = mapping[message.id]["transformation"]
-            name = mapping[message.id]["name"]
-            unit = mapping[message.id]["unit"]
-
-            value = transform_function(message.data)
-            return Measurement(name, message.id, value, unit)
+            message_mapping = mapping[message.id]
         except KeyError:
-            ZCanBaseException("Could not find mapping for {}".format(message))
+            return None
+
+        name = message_mapping["name"]
+        unit = message_mapping["unit"]
+        transform_function = message_mapping["transformation"]
+        value = transform_function(message.data)
+
+        return Measurement(name, message.id, value, unit)
 
     def __str__(self):
         return "name: {} id:{} value:{} unit:{}".format(self.name, self.id, self.value, self.unit)
@@ -52,6 +55,7 @@ class Measurement(object):
 
 class CanBusReader(object):
     def __init__(self):
+        self.logger = get_logger("CanBusReader")
         self.can = CanBusInterface()
 
     def read_messages(self, data):
@@ -60,11 +64,14 @@ class CanBusReader(object):
             while True:
                 try:
                     message = self.can.read_message()
-                    print(message)
-                    measurement = Measurement.from_message(message)
-                    if measurement:
-                        data[measurement.name] = measurement
-                except ZCanBaseException as e:
+                    if message:
+                        self.logger.info(message)
+                        measurement = Measurement.from_message(message)
+                        if measurement:
+                            data[measurement.name] = measurement
+                        else:
+                            self.logger.warn("Could not find mapping for {}".format(message))
+                except Exception as e:
                     print(e)
         finally:
             self.can.close()
