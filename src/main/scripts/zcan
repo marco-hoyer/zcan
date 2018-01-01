@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+
+from zcan.main import main
+
+main()
