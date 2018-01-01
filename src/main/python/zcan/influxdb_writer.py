@@ -8,7 +8,9 @@ class InfluxDbWriter(object):
     def __init__(self, host="localhost", port=8086, user="root", password="root", db="zcan"):
         self.logger = get_logger("InfluxDbWriter")
         self.db = db
+
         self.client = InfluxDBClient(host, port, user, password, db)
+        self.client.create_database(db)
 
     def send_metric_datapoint(self, measurement: Measurement, timestamp=get_current_time()):
         json_body = [
