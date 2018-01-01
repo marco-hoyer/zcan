@@ -1,4 +1,31 @@
 import serial
+from zcan.mapping import mapping
+
+
+class Measurement(object):
+    def __init__(self, name: str, id: str, value, unit: str):
+        self.name = name
+        self.id = id
+        self.value = value
+        self.unit = unit
+
+    @staticmethod
+    def from_message(message: Message):
+        transform_function = mapping[message.id]["transformation"]
+        name = mapping[message.id]["name"]
+        unit = mapping[message.id]["unit"]
+
+        value = transform_function(message.data)
+        return Measurement(name, message.id, value, unit)
+
+    def __str__(self):
+        return "name: {} id:{} value:{} unit:{}".format(self.name, self.id, self.value, self.unit)
+
+    def __eq__(self, other):
+        if self.name == other.name and self.id == other.id and self.value == other.value and self.unit == other.unit:
+            return True
+        else:
+            return False
 
 
 class Message(object):
@@ -24,7 +51,9 @@ class CanBusReader(object):
 
     def read_messages(self, data):
         while True:
-            data["foo"] = self.can.read_message()
+            message = self.can.read_message()
+            measurement = Measurement.from_message(message)
+            data[measurement.name] = measurement
 
 
 class CanBusInterface(object):
