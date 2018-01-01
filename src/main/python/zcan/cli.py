@@ -1,2 +1,5 @@
-def main():
-    pass
+from zcan.main import main
+
+
+def cli():
+    main()

@@ -2,6 +2,8 @@ from multiprocessing import Process, Manager
 from zcan.can import CanBusReader
 import time
 
+from zcan.influxdb_writer import InfluxDbWriter
+
 
 def main():
     manager = Manager()
@@ -12,13 +14,16 @@ def main():
         CanBusReader().read_messages(m, u)
 
     def measurements_outputs(m):
+        writer = InfluxDbWriter()
         while True:
-            print(m)
-            time.sleep(2)
+            for item in m.values():
+                writer.send_metric_datapoint(item)
+
+            time.sleep(10)
 
     def unknowns_output(u):
         while True:
-            for item in u.items():
+            for item in u.values():
                 print(item)
             time.sleep(60)
 

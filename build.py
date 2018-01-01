@@ -39,7 +39,7 @@ def set_properties(project):
     project.set_property('copy_resources_target', '$dir_dist')
 
     project.get_property('filter_resources_glob').extend(['**/zcan/__init__.py'])
-    project.set_property('distutils_console_scripts', ['cf=zcan.cli:main'])
+    project.set_property('distutils_console_scripts', ['zcan=zcan.cli:cli'])
 
     project.set_property('distutils_classifiers', [
         'Development Status :: 4 - Beta',
