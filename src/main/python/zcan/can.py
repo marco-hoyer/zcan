@@ -60,8 +60,10 @@ class CanBusReader(object):
             while True:
                 try:
                     message = self.can.read_message()
+                    print(message)
                     measurement = Measurement.from_message(message)
-                    data[measurement.name] = measurement
+                    if measurement:
+                        data[measurement.name] = measurement
                 except ZCanBaseException as e:
                     print(e)
         finally:
