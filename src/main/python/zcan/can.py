@@ -50,10 +50,14 @@ class CanBusReader(object):
         self.can = CanBusInterface()
 
     def read_messages(self, data):
-        while True:
-            message = self.can.read_message()
-            measurement = Measurement.from_message(message)
-            data[measurement.name] = measurement
+        self.can.open()
+        try:
+            while True:
+                message = self.can.read_message()
+                measurement = Measurement.from_message(message)
+                data[measurement.name] = measurement
+        finally:
+            self.can.close()
 
 
 class CanBusInterface(object):

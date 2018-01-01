@@ -9,6 +9,8 @@ d = manager.dict()
 
 
 def input(data):
+    reader = CanBusReader()
+    reader.
     CanBusReader().read_messages(data)
 
 
