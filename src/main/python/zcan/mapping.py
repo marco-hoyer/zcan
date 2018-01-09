@@ -20,12 +20,12 @@ mapping = {
         "transformation": transform_temperature
     },
     "001E0041": {
-        "name": "air_volume_output_ventilator",
+        "name": "air_volume_input_ventilator",
         "unit": "m3",
         "transformation": transform_air_volume
     },
     "001DC041": {
-        "name": "air_volume_input_ventilator",
+        "name": "air_volume_output_ventilator",
         "unit": "m3",
         "transformation": transform_air_volume
     },
