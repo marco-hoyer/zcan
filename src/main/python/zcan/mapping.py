@@ -137,7 +137,7 @@ mapping = {
     "001E8041": {
         "name": "001E8041",
         "unit": "unknown",
-        "transformation": lambda x: int(x[0])
+        "transformation": transform_air_volume
     },
     "00390041": {
         "name": "00390041",
@@ -292,7 +292,7 @@ mapping = {
     "001E4041": {
         "name": "001E4041",
         "unit": "unknown",
-        "transformation": lambda x: int(x[0])
+        "transformation": transform_air_volume
     },
 
     "00544041": {
