@@ -29,6 +29,16 @@ mapping = {
         "unit": "m3",
         "transformation": transform_air_volume
     },
+    "001E8041": {
+        "name": "speed_input_ventilator",
+        "unit": "rpm",
+        "transformation": transform_air_volume
+    },
+    "001E4041": {
+        "name": "speed_output_ventilator",
+        "unit": "rpm",
+        "transformation": transform_air_volume
+    },
     "00488041": {
         "name": "air_humidity_outlet_before_recuperator",
         "unit": "%",
@@ -133,11 +143,6 @@ mapping = {
         "name": "00354041",
         "unit": "unknown",
         "transformation": lambda x: float(x[0])
-    },
-    "001E8041": {
-        "name": "001E8041",
-        "unit": "unknown",
-        "transformation": transform_air_volume
     },
     "00390041": {
         "name": "00390041",
@@ -287,12 +292,6 @@ mapping = {
         "name": "00104041",
         "unit": "unknown",
         "transformation": lambda x: float(x[0])
-    },
-
-    "001E4041": {
-        "name": "001E4041",
-        "unit": "unknown",
-        "transformation": transform_air_volume
     },
 
     "00544041": {
