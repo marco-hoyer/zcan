@@ -67,12 +67,12 @@ mapping = {
     "0082C042": {
         "name": "0082C042",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
     "004C4041": {
         "name": "004C4041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
     "00384041": {
         "name": "00384041",
@@ -87,32 +87,32 @@ mapping = {
     "00824042": {
         "name": "00824042",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
     "00810042": {
         "name": "00810042",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
     "00208041": {
         "name": "00208041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
     "00344041": {
         "name": "00344041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
     "00370041": {
         "name": "00370041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
     "00300041": {
         "name": "00300041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
     "00044041": {
         "name": "00044041",
@@ -122,7 +122,7 @@ mapping = {
     "00204041": {
         "name": "00204041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
     "00084041": {
         "name": "00084041",
@@ -132,7 +132,7 @@ mapping = {
     "00804042": {
         "name": "00804042",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
     "00644041": {
         "name": "00644041",
@@ -142,7 +142,7 @@ mapping = {
     "00354041": {
         "name": "00354041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
     "00390041": {
         "name": "00390041",
@@ -153,19 +153,19 @@ mapping = {
     "0035C041": {
         "name": "0035C041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
 
     "0044C041": {
         "name": "0044C041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
 
     "0080C042": {
         "name": "0080C042",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
 
     "000E0041": {
@@ -183,7 +183,7 @@ mapping = {
     "00450041": {
         "name": "00450041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
 
     "00378041": {
@@ -219,7 +219,7 @@ mapping = {
     "00350041": {
         "name": "00350041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
 
     "10000002": {
@@ -249,7 +249,7 @@ mapping = {
     "00374041": {
         "name": "00374041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
 
     "00808042": {
@@ -285,7 +285,7 @@ mapping = {
     "00358041": {
         "name": "00358041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
 
     "00104041": {
@@ -339,12 +339,12 @@ mapping = {
     "004C8041": {
         "name": "004C8041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     },
 
     "00388041": {
         "name": "00388041",
         "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "transformation": transform_air_volume
     }
 }
