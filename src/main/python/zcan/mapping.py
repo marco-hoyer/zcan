@@ -95,8 +95,8 @@ mapping = {
         "transformation": transform_air_volume
     },
     "00208041": {
-        "name": "00208041",
-        "unit": "unknown",
+        "name": "total_power_consumption",
+        "unit": "kWh",
         "transformation": transform_air_volume
     },
     "00344041": {
@@ -110,8 +110,8 @@ mapping = {
         "transformation": transform_air_volume
     },
     "00300041": {
-        "name": "00300041",
-        "unit": "unknown",
+        "name": "days_until_next_filter_change",
+        "unit": "days",
         "transformation": transform_air_volume
     },
     "00044041": {
@@ -120,8 +120,8 @@ mapping = {
         "transformation": lambda x: float(x[0])
     },
     "00204041": {
-        "name": "00204041",
-        "unit": "unknown",
+        "name": "total_power_consumption_this_year",
+        "unit": "kWh",
         "transformation": transform_air_volume
     },
     "00084041": {
@@ -145,14 +145,14 @@ mapping = {
         "transformation": transform_air_volume
     },
     "00390041": {
-        "name": "00390041",
-        "unit": "unknown",
+        "name": "frost_disbalance",
+        "unit": "%",
         "transformation": lambda x: float(x[0])
     },
 
     "0035C041": {
-        "name": "0035C041",
-        "unit": "unknown",
+        "name": "total_power_savings",
+        "unit": "kWh",
         "transformation": transform_air_volume
     },
 
@@ -283,8 +283,8 @@ mapping = {
     },
 
     "00358041": {
-        "name": "00358041",
-        "unit": "unknown",
+        "name": "total_power_savings_this_year",
+        "unit": "kWh",
         "transformation": transform_air_volume
     },
 
