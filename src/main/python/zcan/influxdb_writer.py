@@ -29,4 +29,4 @@ class InfluxDbWriter(object):
         try:
             self.client.write_points(json_body, database=self.db)
         except Exception as e:
-            self.logger.error(e)
+            self.logger.exception(e)
