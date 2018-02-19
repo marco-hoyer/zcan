@@ -1,5 +1,5 @@
 from multiprocessing import Process, Manager
-from zcan.can import CanBusReader
+from zcan.can import CanBus
 import time
 
 from zcan.influxdb_writer import InfluxDbWriter
@@ -8,8 +8,12 @@ from zcan.util import get_logger
 logger = get_logger()
 
 
+def write():
+    CanBus().write()
+
+
 def listen():
-    CanBusReader().print_messages()
+    CanBus().print_messages()
 
 
 def main():
@@ -30,7 +34,7 @@ def main():
 
 
 def input(m, u):
-    CanBusReader().read_messages(m, u)
+    CanBus().read_messages(m, u)
 
 
 def measurements_outputs_to_influxdb(m):

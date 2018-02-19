@@ -2,7 +2,7 @@ import logging
 import sys
 import click
 
-from zcan.main import main, listen
+from zcan.main import main, listen, write
 
 from zcan.util import get_logger
 
@@ -47,6 +47,22 @@ def show(debug):
         LOGGER.exception(e)
         sys.exit(1)
 
+
+@cli.command(help="write")
+@click.option('--debug', '-d', is_flag=True, default=False, envvar='ZCAN_DEBUG', help="Debug output")
+def test(debug):
+    if debug:
+        LOGGER.setLevel(logging.DEBUG)
+    else:
+        LOGGER.setLevel(logging.INFO)
+
+    try:
+
+        write()
+    except Exception as e:
+        LOGGER.error("Failed with unexpected error")
+        LOGGER.exception(e)
+        sys.exit(1)
 
 if __name__ == "__main__":
     cli()

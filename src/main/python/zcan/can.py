@@ -57,7 +57,7 @@ class Measurement(object):
             return False
 
 
-class CanBusReader(object):
+class CanBus(object):
     def __init__(self):
         self.logger = get_logger("CanBusReader")
         self.can = CanBusInterface()
@@ -95,6 +95,14 @@ class CanBusReader(object):
                             self.logger.info(message.print_full_repr())
                 except Exception as e:
                     print(e)
+        finally:
+            self.can.close()
+
+    def write(self):
+        self.can.open()
+
+        try:
+            self.can.write_message()
         finally:
             self.can.close()
 
@@ -148,6 +156,9 @@ class CanBusInterface(object):
         """
         frame = self.connection.read_until(b'\r')
         return self._to_can_message(frame)
+
+    def write_message(self):
+        self.connection.write(b'T1F07505180100201C00000300\r')
 
 
 if __name__ == "__main__":
