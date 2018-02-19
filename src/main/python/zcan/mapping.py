@@ -227,12 +227,6 @@ mapping = {
         "transformation": transform_air_volume
     },
 
-    "10000002": {
-        "name": "10000002",
-        "unit": "unknown",
-        "transformation": lambda x: float(x[0])
-    },
-
     "0081C042": {
         "name": "0081C042",
         "unit": "unknown",
