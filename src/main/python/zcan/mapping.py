@@ -323,12 +323,6 @@ mapping = {
         "transformation": lambda x: float(x[0])
     },
 
-    "10000001": {
-        "name": "10000001",
-        "unit": "unknown",
-        "transformation": lambda x: float(x[0])
-    },
-
     "00494041": {
         "name": "00494041",
         "unit": "unknown",
