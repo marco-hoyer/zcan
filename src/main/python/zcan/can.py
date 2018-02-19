@@ -83,7 +83,12 @@ class CanBusReader(object):
                 try:
                     message = self.can.read_message()
                     if message:
-                        self.logger.info(message)
+                        try:
+                            message_mapping = mapping[message.id]
+                            name = message_mapping["name"]
+                            self.logger.debug(name)
+                        except KeyError:
+                            self.logger.info(message)
                 except Exception as e:
                     print(e)
         finally:
