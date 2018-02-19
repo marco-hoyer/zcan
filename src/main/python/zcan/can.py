@@ -76,6 +76,19 @@ class CanBusReader(object):
         finally:
             self.can.close()
 
+    def print_messages(self):
+        self.can.open()
+        try:
+            while True:
+                try:
+                    message = self.can.read_message()
+                    if message:
+                        self.logger.info(message)
+                except Exception as e:
+                    print(e)
+        finally:
+            self.can.close()
+
 
 class CanBusInterface(object):
     def __init__(self, device="/dev/ttyACM0"):

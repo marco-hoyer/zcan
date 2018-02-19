@@ -31,6 +31,7 @@ def set_properties(project):
     project.depends_on("xknx")
     project.depends_on("influxdb")
     project.depends_on("pyserial")
+    project.depends_on("click")
 
     project.set_property('integrationtest_inherit_environment', True)
     project.set_property('coverage_break_build', False)
