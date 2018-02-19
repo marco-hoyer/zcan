@@ -14,6 +14,9 @@ class Message(object):
         self.raw = raw
 
     def __str__(self):
+        return "type:{} id:{} length:{} data:{}".format(self.type, self.id, self.length, self.data)
+
+    def print_full_repr(self):
         return "type:{} id:{} length:{} data:{} (raw: {})".format(self.type, self.id, self.length, self.data, self.raw)
 
     def __eq__(self, other):
@@ -89,7 +92,7 @@ class CanBusReader(object):
                             name = message_mapping["name"]
                             self.logger.debug(name)
                         except KeyError:
-                            self.logger.info(message)
+                            self.logger.info(message.print_full_repr())
                 except Exception as e:
                     print(e)
         finally:
