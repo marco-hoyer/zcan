@@ -43,7 +43,10 @@ class Measurement(object):
         name = message_mapping["name"]
         unit = message_mapping["unit"]
         transform_function = message_mapping["transformation"]
-        value = transform_function(message.data)
+        try:
+            value = transform_function(message.data)
+        except Exception as e:
+            raise RuntimeError("Could not transform data {} to value for {}, error: {}".format(message.data, name, e))
 
         return Measurement(name, message.id, value, unit)
 
