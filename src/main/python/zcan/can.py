@@ -6,14 +6,15 @@ from zcan.util import get_logger
 
 
 class Message(object):
-    def __init__(self, type: str, id: str, length: int, data):
+    def __init__(self, type: str, id: str, length: int, data, raw):
         self.type = type
         self.id = id
         self.length = length
         self.data = data
+        self.raw = raw
 
     def __str__(self):
-        return "type:{} id:{} length:{} data:{}".format(self.type, self.id, self.length, self.data)
+        return "type:{} id:{} length:{} data:{} (raw: {})".format(self.type, self.id, self.length, self.data, self.raw)
 
     def __eq__(self, other):
         if self.type == other.type and self.id == other.id and self.length == other.length and self.data == other.data:
@@ -133,7 +134,7 @@ class CanBusInterface(object):
                 data.append(int(frame[index:index + 2], 16))
                 index += 2
 
-            return Message(type, id, length, data)
+            return Message(type, id, length, data, frame)
         except Exception as e:
             print("Could not parse can frame '{}', error was: {}".format(frame, e))
 
