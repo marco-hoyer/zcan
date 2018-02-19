@@ -76,7 +76,7 @@ class CanBus(object):
                         else:
                             unknown_messages[message.id] = message
                 except Exception as e:
-                    print(e)
+                    self.logger.exception(e)
         finally:
             self.can.close()
 
