@@ -6,7 +6,7 @@ from zcan.util import get_logger
 
 
 class Message(object):
-    def __init__(self, type: str, id: str, length: int, data, raw):
+    def __init__(self, type: str, id: str, length: int, data, raw=None):
         self.type = type
         self.id = id
         self.length = length
