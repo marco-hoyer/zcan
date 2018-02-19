@@ -7,4 +7,4 @@ pip uninstall -y zcan
 pyb install
 killall zcan
 cd /tmp
-nohup zcan &
+nohup zcan run &
