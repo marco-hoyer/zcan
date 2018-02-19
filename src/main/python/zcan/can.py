@@ -158,7 +158,7 @@ class CanBusInterface(object):
         return self._to_can_message(frame)
 
     def write_message(self):
-        self.connection.write(b'T1F07505180100201C00000300\r')
+        self.connection.write(b't1F07505180100201C00000300\r')
 
 
 if __name__ == "__main__":
