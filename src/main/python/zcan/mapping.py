@@ -9,6 +9,11 @@ def transform_air_volume(value: list) -> float:
 
 
 mapping = {
+    "00148041": {
+        "name": "unknown_decreasing_number",
+        "unit": "unknown",
+        "transformation": lambda x: float(x[0])
+    },
     "00454041": {
         "name": "temperature_inlet_before_recuperator",
         "unit": "°C",
