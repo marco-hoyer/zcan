@@ -57,8 +57,8 @@ def test(debug):
         LOGGER.setLevel(logging.INFO)
 
     try:
-
-        write()
+        payload = click.prompt("Payload")
+        write(payload)
     except Exception as e:
         LOGGER.error("Failed with unexpected error")
         LOGGER.exception(e)

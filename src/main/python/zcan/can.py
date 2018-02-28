@@ -101,11 +101,11 @@ class CanBus(object):
         finally:
             self.can.close()
 
-    def write(self):
+    def write(self, payload):
         self.can.open()
 
         try:
-            self.can.write_message()
+            self.can.write_message(payload)
         finally:
             self.can.close()
 
@@ -160,8 +160,10 @@ class CanBusInterface(object):
         frame = self.connection.read_until(b'\r')
         return self._to_can_message(frame)
 
-    def write_message(self):
-        self.connection.write(b't1F07505180100201C00000300\r')
+    def write_message(self, payload):
+        message = bytearray("{}\r".format(payload))
+        print("Going to send: {}".format(message))
+        self.connection.write(message)
 
 
 if __name__ == "__main__":

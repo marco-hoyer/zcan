@@ -8,8 +8,8 @@ from zcan.util import get_logger
 logger = get_logger()
 
 
-def write():
-    CanBus().write()
+def write(payload):
+    CanBus().write(payload)
 
 
 def listen():
