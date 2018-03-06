@@ -348,6 +348,11 @@ mapping = {
         "name": "bypass_b_status",
         "unit": "unknown",
         "transformation": transform_air_volume
+    },
+    "0038C041": {
+        "name": "bypass_open",
+        "unit": "%",
+        "transformation": lambda x: float(x[0])
     }
 }
 
