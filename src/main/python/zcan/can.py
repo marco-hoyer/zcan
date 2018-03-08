@@ -136,10 +136,10 @@ class CanBusInterface(object):
         try:
             frame = frame.strip(b'\x07')
 
-            type = frame[0:1].decode("utf-8")
+            type = frame[0:1].decode("ascii")
             assert type.lower() in ["t", "r"], "message type must be T or R, not '{}'".format(type)
 
-            id = frame[1:9].decode("utf-8")
+            id = frame[1:9].decode("ascii")
             length = int(frame[9:10], 16)
 
             index = 10
@@ -162,9 +162,10 @@ class CanBusInterface(object):
         return self._to_can_message(frame)
 
     def write_message(self, payload):
-        message = bytearray("{}\r".format(payload), encoding="utf-8")
+        message = bytearray("{}\r".format(payload), encoding="ascii")
         print("Going to send: {}".format(message))
         self.connection.write(message)
+
 
 
 if __name__ == "__main__":
