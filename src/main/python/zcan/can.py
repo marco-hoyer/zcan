@@ -95,8 +95,7 @@ class CanBus(object):
                             name = message_mapping["name"]
                             self.logger.debug(name)
                         except KeyError:
-                            if message.length > 0:
-                                print(message.print_full_repr())
+                            print(message.print_full_repr())
                 except Exception as e:
                     print(e)
         finally:
