@@ -367,5 +367,7 @@ command_mapping = {
     "temperature_profile_warm": b'T0010C041102\r',
     "close_bypass": b'T00108041102\r',
     "open_bypass": b'T00108041101\r',
-    "auto_bypass": b'T00108041100\r'
+    "auto_bypass": b'T00108041100\r',
+    "basis_menu": b"T00400041100\r",
+    "extended_menu": b"T00400041101\r"
 }

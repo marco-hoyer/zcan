@@ -162,7 +162,7 @@ class CanBusInterface(object):
         return self._to_can_message(frame)
 
     def write_message(self, payload):
-        message = bytearray("{}\r".format(payload))
+        message = bytearray("{}\r".format(payload), encoding="utf-8")
         print("Going to send: {}".format(message))
         self.connection.write(message)
 
