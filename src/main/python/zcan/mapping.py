@@ -289,7 +289,7 @@ mapping = {
 
     "00104041": {
         "name": "00104041",
-        "unit": "unknown",
+        "unit": "ventilation_level",
         "transformation": lambda x: float(x[0])
     },
 
