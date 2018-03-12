@@ -85,9 +85,9 @@ mapping = {
         "transformation": lambda x: float(x[0])
     },
     "00144041": {
-        "name": "00144041",
-        "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "name": "remaining_s_in_currend_ventilation_mode",
+        "unit": "s",
+        "transformation": transform_air_volume
     },
     "00824042": {
         "name": "00824042",
@@ -287,7 +287,7 @@ mapping = {
         "transformation": transform_air_volume
     },
 
-    "00104041": {
+    "ventilation_level": {
         "name": "00104041",
         "unit": "ventilation_level",
         "transformation": lambda x: float(x[0])
@@ -348,6 +348,11 @@ mapping = {
         "name": "bypass_b_status",
         "unit": "unknown",
         "transformation": transform_air_volume
+    },
+    "00108041": {
+        "name": "bypass_state",
+        "unit": "0=auto,1=open,2=close",
+        "transformation": lambda x: float(x[0])
     },
     "0038C041": {
         "name": "bypass_open",
