@@ -81,5 +81,21 @@ def set_ventilation_level(debug):
         LOGGER.exception(e)
         sys.exit(1)
 
+@cli.command(help="write")
+@click.option('--debug', '-d', is_flag=True, default=False, envvar='ZCAN_DEBUG', help="Debug output")
+def check_for_error(debug):
+    if debug:
+        LOGGER.setLevel(logging.DEBUG)
+    else:
+        LOGGER.setLevel(logging.INFO)
+
+    try:
+        iterator = click.prompt("Iterator")
+        write_ventilation_level(iterator)
+    except Exception as e:
+        LOGGER.error("Failed with unexpected error")
+        LOGGER.exception(e)
+        sys.exit(1)
+
 if __name__ == "__main__":
     cli()

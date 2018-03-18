@@ -123,6 +123,13 @@ class CanBus(object):
         finally:
             self.can.close()
 
+    def get_error_state(self):
+        self.can.open()
+        try:
+            print(self.can.get_error_state())
+        finally:
+            self.can.close()
+
 
 class CanBusInterface(object):
     def __init__(self, device="/dev/ttyACM0"):
@@ -167,14 +174,21 @@ class CanBusInterface(object):
         except Exception as e:
             print("Could not parse can frame '{}', error was: {}".format(frame, e))
 
+    def read(self):
+        return self.connection.read_until(b'\r')
+
     def read_message(self):
         """
         read until stop character is found or timeout occurs
         :return: one line as bytestring
         """
-        frame = self.connection.read_until(b'\r')
+        frame = self.read()
         self.logger.debug(frame)
         return self._to_can_message(frame)
+
+    def get_error_state(self):
+        self.connection.write(b"F\r")
+        return self.read()
 
     def write_message_string(self, payload: str):
         message = bytearray("{}\r".format(payload), encoding="ascii")
