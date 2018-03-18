@@ -12,6 +12,15 @@ def write(payload):
     CanBus().write(payload)
 
 
+def write_ventilation_level(iterator):
+    messages = [
+        bytes("T1F0{}505180084150101000000".format(iterator), encoding="ASCII"),
+        bytes("T1F0{}505180100201C00000300".format(iterator), encoding="ASCII"),
+        bytes("T1F0{}14410".format(int(iterator) - 1), encoding="ASCII")
+    ]
+    CanBus().write_messages(messages)
+
+
 def listen():
     CanBus().print_messages()
 

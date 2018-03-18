@@ -109,6 +109,14 @@ class CanBus(object):
         finally:
             self.can.close()
 
+    def write_messages(self, payloads: list):
+        self.can.open()
+        try:
+            for payload in payloads:
+                self.can.write_message(payload)
+        finally:
+            self.can.close()
+
 
 class CanBusInterface(object):
     def __init__(self, device="/dev/ttyACM0"):
@@ -164,7 +172,6 @@ class CanBusInterface(object):
         message = bytearray("{}\r".format(payload), encoding="ascii")
         print("Going to send: {}".format(message))
         self.connection.write(message)
-
 
 
 if __name__ == "__main__":
