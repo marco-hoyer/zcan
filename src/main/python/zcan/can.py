@@ -105,7 +105,10 @@ class CanBus(object):
         self.can.open()
 
         try:
-            self.can.write_message(payload)
+            if isinstance(payload, str):
+                self.can.write_message_string(payload)
+            else:
+                self.can.write_message_bytes(payload)
         finally:
             self.can.close()
 
@@ -113,7 +116,10 @@ class CanBus(object):
         self.can.open()
         try:
             for payload in payloads:
-                self.can.write_message(payload)
+                if isinstance(payload, str):
+                    self.can.write_message_string(payload)
+                else:
+                    self.can.write_message_bytes(payload)
         finally:
             self.can.close()
 
@@ -170,10 +176,14 @@ class CanBusInterface(object):
         self.logger.debug(frame)
         return self._to_can_message(frame)
 
-    def write_message(self, payload):
+    def write_message_string(self, payload: str):
         message = bytearray("{}\r".format(payload), encoding="ascii")
         print("Going to send: {}".format(message))
         self.connection.write(message)
+
+    def write_message_bytes(self, payload: bytes):
+        print("Going to send bytes: {}".format(payload))
+        self.connection.write(payload)
 
 
 if __name__ == "__main__":
