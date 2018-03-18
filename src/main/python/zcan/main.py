@@ -21,8 +21,8 @@ def write_ventilation_level(iterator):
     CanBus().write_messages(messages)
 
 
-def listen():
-    CanBus().print_messages()
+def listen(all: bool):
+    CanBus().print_messages(all)
 
 
 def main():

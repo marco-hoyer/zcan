@@ -83,7 +83,7 @@ class CanBus(object):
         finally:
             self.can.close()
 
-    def print_messages(self):
+    def print_messages(self, all: bool):
         self.can.open()
         try:
             while True:
@@ -91,9 +91,9 @@ class CanBus(object):
                     message = self.can.read_message()
                     if message:
                         try:
-                            message_mapping = mapping[message.id]
-                            name = message_mapping["name"]
-                            self.logger.debug(name)
+                            mapping[message.id]
+                            if all:
+                                print(message.print_full_repr())
                         except KeyError:
                             print(message.print_full_repr())
                 except Exception as e:

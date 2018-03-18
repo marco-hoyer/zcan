@@ -33,7 +33,8 @@ def run(debug):
 
 @cli.command(help="show messages")
 @click.option('--debug', '-d', is_flag=True, default=False, envvar='ZCAN_DEBUG', help="Debug output")
-def show(debug):
+@click.option('--all', '-a', is_flag=True, default=False, envvar='ZCAN_ALL', help="show all messages")
+def show(all, debug):
     if debug:
         LOGGER.setLevel(logging.DEBUG)
     else:
@@ -41,7 +42,7 @@ def show(debug):
 
     try:
 
-        listen()
+        listen(all)
     except Exception as e:
         LOGGER.error("Failed with unexpected error")
         LOGGER.exception(e)
