@@ -2,7 +2,7 @@ import logging
 import sys
 import click
 
-from zcan.main import main, listen, write, write_ventilation_level
+from zcan.main import main, listen, write, write_ventilation_level, get_error_state
 
 from zcan.util import get_logger
 
@@ -90,8 +90,7 @@ def check_for_error(debug):
         LOGGER.setLevel(logging.INFO)
 
     try:
-        iterator = click.prompt("Iterator")
-        write_ventilation_level(iterator)
+        get_error_state()
     except Exception as e:
         LOGGER.error("Failed with unexpected error")
         LOGGER.exception(e)
