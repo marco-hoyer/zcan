@@ -120,6 +120,7 @@ class CanBus(object):
 
 class CanBusInterface(object):
     def __init__(self, device="/dev/ttyACM0"):
+        self.logger = get_logger("CanBusInterface")
         self.connection = serial.serial_for_url(device, do_not_open=True)
         self.connection.baudrate = 115200
 
@@ -166,6 +167,7 @@ class CanBusInterface(object):
         :return: one line as bytestring
         """
         frame = self.connection.read_until(b'\r')
+        self.logger.debug(frame)
         return self._to_can_message(frame)
 
     def write_message(self, payload):
