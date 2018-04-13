@@ -5,7 +5,7 @@ from zcan.util import get_logger, get_current_time
 
 
 class InfluxDbWriter(object):
-    def __init__(self, host="localhost", port=8086, user="root", password="root", db="zcan"):
+    def __init__(self, host="influxdb", port=8086, user="root", password="root", db="zcan"):
         self.logger = get_logger("InfluxDbWriter")
         self.db = db
 
