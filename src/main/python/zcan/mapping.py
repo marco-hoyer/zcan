@@ -362,11 +362,12 @@ mapping = {
 }
 
 command_mapping = {
-    "set_ventilation_level_0": b'T1F01505180100201C00000000\r',
-    "set_ventilation_level_1": b'T1F03505180100201C00000100\r',
-    "set_ventilation_level_2": b'T1F05505180100201C00000200\r',
+    "set_ventilation_level_0": b'T1F07505180100201C00000000\r',
+    "set_ventilation_level_1": b'T1F07505180100201C00000100\r',
+    "set_ventilation_level_2": b'T1F07505180100201C00000200\r',
     "set_ventilation_level_3": b'T1F07505180100201C00000300\r',
-    "auto_mode": b'T1F071051485150801\r', # verified (also: T1F051051485150801\r)
+    "auto_mode": b'T1F075051485150801\r', # verified (also: T1F051051485150801\r)
+    "manual_mode": b'T1F07505180084150101000000\r', # verified (also: T1F051051485150801\r)
     "temperature_profile_cool": b'T0010C041101\r',
     "temperature_profile_normal": b'T0010C041100\r',
     "temperature_profile_warm": b'T0010C041102\r',

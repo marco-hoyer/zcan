@@ -34,34 +34,41 @@ def main():
     measurements = manager.dict()
     unknown_messages = manager.dict()
 
-    p1 = Process(target=input, args=(measurements, unknown_messages,))
-    p2 = Process(target=measurements_outputs_to_influxdb, args=(measurements,))
-    p3 = Process(target=unknowns_output, args=(unknown_messages,))
+    p1 = Process(target=read_can_bus, args=(measurements, unknown_messages,))
+    p2 = Process(target=write_to_influxdb, args=(measurements,))
+    # p3 = Process(target=log_unknown_messages, args=(unknown_messages,))
 
     p1.start()
     p2.start()
-    p3.start()
+    # p3.start()
     p1.join()
     p2.join()
-    p3.join()
+    # p3.join()
 
 
-def input(m, u):
-    CanBus().read_messages(m, u)
+def read_can_bus(m, u):
+    while True:
+        try:
+            CanBus().read_messages(m, u)
+        except Exception as e:
+            logger.exception(e)
 
 
-def measurements_outputs_to_influxdb(m):
+def write_to_influxdb(m):
     writer = InfluxDbWriter()
     while True:
-        logger.info("Sending values to influxdb")
-        for item in m.values():
-            logger.debug("Sending to influxdb: {}".format(item))
-            writer.send_metric_datapoint(item)
+        try:
+            logger.info("Sending values to influxdb")
+            for item in m.values():
+                logger.debug("Sending to influxdb: {}".format(item))
+                writer.send_metric_datapoint(item)
+        except Exception as e:
+            logger.exception(e)
 
         time.sleep(10)
 
 
-def unknowns_output(u):
+def log_unknown_messages(u):
     while True:
         logger.info("Unknown messages so far")
         for item in u.values():
