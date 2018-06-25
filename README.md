@@ -1,5 +1,5 @@
 # zcan
-Protocol adapter for Zehnder ComfoAir Q series devices with CAN bus interface
+A protocol adapter for Zehnder ComfoAir Q series devices with CAN bus interface. It reads and interprets CAN messages from a USBtin CAN adapter (https://amzn.to/2KiAR2U) and sends metrics to an Influxdb instance.
 
 ## Installation
 
