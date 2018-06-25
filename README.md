@@ -7,18 +7,18 @@ Protocol adapter for Zehnder ComfoAir Q series devices with CAN bus interface
 
 Have python 3 installed and run the following to install pybuilder (build tool)
   
-  pip3 install pybuilder
+    pip3 install pybuilder
   
 ### build the project
 
 Go to the project root dir and execute
 
-  pyb install_dependencies
-  pyb
+    pyb install_dependencies
+    pyb
   
 ### Install locally
 
-  pyb install
+    pyb install
   
 
 ## Execution
@@ -27,12 +27,12 @@ Go to the project root dir and execute
 
 Start the application as a daemon writing known metrics to influxdb.
 
-  zcan run
+    zcan run
   
 To run the app in the backround
 
-  nohup zcan run &
+    nohup zcan run &
   
 ### print out CAN messages
 
-  zcan show --all --debug
+    zcan show --all --debug
