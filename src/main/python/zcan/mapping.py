@@ -9,6 +9,12 @@ def transform_air_volume(value: list) -> float:
 
 
 mapping = {
+    "0010C041": {
+        "name": "comfocool_profile",
+        "unit": "",
+        "transformation": lambda x: ["Normal", "Cool", "Warm"][int(x[0])]
+    },
+
     "00148041": {
         "name": "unknown_decreasing_number",
         "unit": "unknown",
@@ -50,7 +56,7 @@ mapping = {
         "transformation": lambda x: float(x[0])
     },
     "0048C041": {
-        "name": "air_humidity_inlet_before_recuperator",
+        "name": "air_humidity_outlet_after_recuperator",
         "unit": "%",
         "transformation": lambda x: float(x[0])
     },
@@ -162,9 +168,9 @@ mapping = {
     },
 
     "0044C041": {
-        "name": "0044C041",
-        "unit": "unknown",
-        "transformation": transform_air_volume
+        "name": "temperature_outlet_after_recuperator",
+        "unit": "°C",
+        "transformation": transform_temperature
     },
 
     "0080C042": {
@@ -234,9 +240,9 @@ mapping = {
     },
 
     "00448041": {
-        "name": "00448041",
-        "unit": "unknown",
-        "transformation": lambda x: float(x[0])
+        "name": "temperature_outlet_before_recuperator",
+        "unit": "°C",
+        "transformation": transform_temperature
     },
 
     "00560041": {
@@ -287,9 +293,9 @@ mapping = {
         "transformation": transform_air_volume
     },
 
-    "ventilation_level": {
-        "name": "00104041",
-        "unit": "ventilation_level",
+    "00104041": {
+        "name": "ventilation_level",
+        "unit": "level",
         "transformation": lambda x: float(x[0])
     },
 
@@ -300,8 +306,8 @@ mapping = {
     },
 
     "00498041": {
-        "name": "00498041",
-        "unit": "unknown",
+        "name": "air_humidity_inlet_after_recuperator",
+        "unit": "%",
         "transformation": lambda x: float(x[0])
     },
 
@@ -324,8 +330,8 @@ mapping = {
     },
 
     "00494041": {
-        "name": "00494041",
-        "unit": "unknown",
+        "name": "air_humidity_inlet_before_recuperator",
+        "unit": "%",
         "transformation": lambda x: float(x[0])
     },
 
